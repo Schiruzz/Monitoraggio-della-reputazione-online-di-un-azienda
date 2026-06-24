@@ -40,11 +40,13 @@ def predict(text):
     scores = softmax(scores)
 
     ranking = np.argsort(scores)[::-1]
-    for i in range(scores.shape[0]):
-        label = config.id2label[ranking[i]]
-        score = np.round(float(scores[ranking[i]]), 4)
-        print(f"{i+1}) {label} {score}")
+    top_idx = int(ranking[0])
+    top_label = config.id2label[top_idx]
+    top_score = np.round(float(scores[top_idx]), 4)
 
+    print(f"prediction: {top_label} ({top_score})")
+
+    return top_idx
 
 # --- EVALUATION ---
 print("Loading test set...")
@@ -52,17 +54,19 @@ dataset = load_dataset("tweet_eval", "sentiment")
 test_dataset = dataset["test"]
 
 print("Predicting on test set... (this may take a while)")
-true_labels = test_dataset["label"]
 
 '''
 it takes a long time to predict on the entire test set,
- so we will use a random sample of 500 tweets to evaluate the model
+so we will use a  sample of 500 tweets to evaluate the model
 '''
-idx = np.random.default_rng(42).choice(len(test_dataset), size=500, replace=False)
-pred_labels = [predict(test_dataset["text"][i]) for i in idx]
+sample_size = 500
+
+texts = test_dataset["text"][:sample_size]
+true_labels = np.array(test_dataset["label"][:sample_size], dtype=int)
+pred_labels = np.array([int(predict(text)) for text in texts], dtype=int)
 
 accuracy = accuracy_score(true_labels, pred_labels)
-f1       = f1_score(true_labels, pred_labels, average="weighted")
+f1 = f1_score(true_labels, pred_labels, average="weighted")
 
 print(f"\n--- Evaluation Results ---")
 print(f"Accuracy: {np.round(accuracy, 4)}")
