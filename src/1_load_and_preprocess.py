@@ -26,4 +26,4 @@ dataset = dataset.map(lambda x: {"text": preprocess(x["text"])})
 print(dataset)
 print("\nExample preprocessed tweet:")
 print(dataset["train"][0])
-
+print("Dataset completed loading!")
