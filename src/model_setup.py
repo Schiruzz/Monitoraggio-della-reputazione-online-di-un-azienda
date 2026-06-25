@@ -59,7 +59,7 @@ print("Predicting on test set... (this may take a while)")
 it takes a long time to predict on the entire test set,
 so we will use a  sample of 500 tweets to evaluate the model
 '''
-sample_size = 500
+sample_size = 2000
 
 texts = test_dataset["text"][:sample_size]
 true_labels = np.array(test_dataset["label"][:sample_size], dtype=int)
