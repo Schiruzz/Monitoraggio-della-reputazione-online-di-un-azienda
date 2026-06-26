@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/Monitoraggio-della-reputazione-online-di-un-azienda/mlruns/425563962830121332/b040a7375c8945dfbc6b91f5a2ec3e31/artifacts
+end_time: 1782402687917
+entry_point_name: ''
+experiment_id: '425563962830121332'
+lifecycle_stage: active
+run_id: b040a7375c8945dfbc6b91f5a2ec3e31
+run_name: monitoring_check
+run_uuid: b040a7375c8945dfbc6b91f5a2ec3e31
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782402687906
+status: 3
+tags: []
+user_id: codespace
