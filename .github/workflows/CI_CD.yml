@@ -41,22 +41,20 @@ jobs:
           print('Performance check passed!')
           "
 
-
-
-          
-- name: Deploy to HuggingFace Spaces
+      - name: Deploy to HuggingFace Spaces
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           pip install huggingface_hub
-          python -c "
+          python - << 'EOF'
+          import os
           from huggingface_hub import HfApi
           api = HfApi()
           api.upload_folder(
               folder_path='src',
               repo_id='Schiro/Monitoraggio_Della_Reputazione_Online',
               repo_type='space',
-              token='$HF_TOKEN'
+              token=os.environ['HF_TOKEN']
           )
           print('Deploy completed!')
-          "
+          EOF
