@@ -8,7 +8,7 @@ from datasets import load_dataset
 Load the dataset tweet_eval with sentiment task
 train / validation / test already Splitted
 '''
-dataset = load_dataset("tweet_eval", "sentiment")
+dataset = load_dataset("cardiffnlp/tweet_eval", "sentiment")
 
 # Preprocess text as required by the model
 # - @username -> @user
