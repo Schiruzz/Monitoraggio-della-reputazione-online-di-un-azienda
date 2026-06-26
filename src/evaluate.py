@@ -8,9 +8,9 @@ test_dataset = dataset["test"]
 
 '''
 it takes a long time to predict on the entire test set,
-so we will use a  sample of 500 tweets to evaluate the model
+so we will use a  sample of tweets to evaluate the model
 '''
-sample_size = 500
+sample_size = 100
 texts = test_dataset["text"][:sample_size]
 true_labels = np.array(test_dataset["label"][:sample_size], dtype=int)
 pred_labels = np.array([int(predict(text)) for text in texts], dtype=int)
