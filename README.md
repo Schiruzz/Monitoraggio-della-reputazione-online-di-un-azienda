@@ -5,7 +5,7 @@ Questo progetto implementa un sistema MLOps per l'analisi automatica del sentime
 **L'applicazione è accessibile su HuggingFace Spaces:** [MachineInnovators - Sentiment Monitor](https://huggingface.co/spaces/Schiro/Monitoraggio_Della_Reputazione_Online)
 
 
-Percorso di Sviluppo
+**Percorso di Sviluppo**
 **Fase 1: Implementazione del Modello di Analisi del Sentiment**
 Scelta del Modello e Studio della Documentazione
 
