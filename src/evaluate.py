@@ -23,13 +23,13 @@ print(f"Accuracy: {np.round(accuracy, 4)}")
 print(f"F1 Score: {np.round(f1, 4)}")
 
 
+# Examples — only when file run directly
+if __name__ == "__main__":
+    print("\n--- Tweet 1 ---")
+    predict("Covid cases are increasing fast!")
 
-# Test with some examples
-print("--- Tweet 1 ---")
-predict("Covid cases are increasing fast!")
+    print("\n--- Tweet 2 ---")
+    predict("I love this product, it's amazing!")
 
-print("\n--- Tweet 2 ---")
-predict("I love this product, it's amazing!")
-
-print("\n--- Tweet 3 ---")
-predict("The update was released yesterday.")
+    print("\n--- Tweet 3 ---")
+    predict("The update was released yesterday.")
