@@ -4,27 +4,8 @@ Questo progetto implementa un sistema MLOps per l'analisi automatica del sentime
 
 **L'applicazione è accessibile su HuggingFace Spaces:** [MachineInnovators - Sentiment Monitor](https://huggingface.co/spaces/Schiro/Monitoraggio_Della_Reputazione_Online)
 
-**Struttura del Progetto**
-
-Monitoraggio-della-reputazione-online-di-un-azienda/
-├── src/
-│   ├── model_setup.py       # Caricamento dataset, modello, preprocessing e predizione
-│   ├── evaluate.py          # Valutazione delle performance del modello (accuracy, F1)
-│   ├── monitoring.py        # Monitoraggio distribuzione sentiment e performance
-│   └── app.py               # Interfaccia web Gradio per l'analisi del sentiment
-├── tests/
-│   └── test_model.py        # Test di integrazione con pytest
-├── .github/
-│   └── workflows/
-│       ├── ci.yml           # Pipeline CI: linting, test, performance check
-│       └── cd.yml           # Pipeline CD: deploy automatico su HuggingFace Spaces
-├── deploy.py                # Script di deploy su HuggingFace Spaces
-├── Dockerfile               # Containerizzazione dell'applicazione
-├── requirements.txt         # Dipendenze del progetto
-└── README.md
 
 Percorso di Sviluppo
-
 **Fase 1: Implementazione del Modello di Analisi del Sentiment**
 Scelta del Modello e Studio della Documentazione
 
