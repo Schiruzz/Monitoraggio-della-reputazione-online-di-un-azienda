@@ -1,0 +1,6 @@
+-r requirements.txt
+datasets==2.21.0
+scikit-learn==1.5.2
+pytest==8.3.3
+flake8==7.1.1
+huggingface_hub==0.25.1
