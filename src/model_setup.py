@@ -2,13 +2,6 @@ from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer, AutoConfig
 import numpy as np
 from scipy.special import softmax
-from datasets import load_dataset
-
-'''
-Load the dataset tweet_eval with sentiment task
-train / validation / test already Splitted
-'''
-dataset = load_dataset("cardiffnlp/tweet_eval", "sentiment")
 
 # Preprocess text as required by the model
 # - @username -> @user
@@ -34,13 +27,5 @@ def predict(text):
     text = preprocess(text)
     encoded_input = tokenizer(text, return_tensors='pt')
     output = model(**encoded_input)
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
-
-    ranking = np.argsort(scores)[::-1]
-    top_idx = int(ranking[0])
-    top_label = config.id2label[top_idx]
-    top_score = np.round(float(scores[top_idx]), 4)
-    print(f"Prediction: {top_label} ({top_score})")
-
-    return top_idx
+    scores = softmax(output[0][0].detach().numpy())
+    return int(np.argsort(scores)[::-1][0])

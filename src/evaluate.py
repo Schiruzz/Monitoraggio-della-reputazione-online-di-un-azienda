@@ -1,6 +1,9 @@
-from model_setup import dataset, predict
 from sklearn.metrics import accuracy_score, f1_score
 import numpy as np
+from datasets import load_dataset
+from model_setup import predict
+
+dataset = load_dataset("cardiffnlp/tweet_eval", "sentiment")
 
 # --- EVALUATION ---
 print("Loading test set...")

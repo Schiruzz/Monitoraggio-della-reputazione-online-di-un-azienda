@@ -1,6 +1,9 @@
-from model_setup import dataset, predict
 import numpy as np
 import random
+from datasets import load_dataset
+from model_setup import predict
+
+dataset = load_dataset("cardiffnlp/tweet_eval", "sentiment")
 
 # Take a sample of random tweets to monitor
 test_dataset = dataset["test"]
