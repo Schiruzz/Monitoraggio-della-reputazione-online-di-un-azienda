@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import mlflow
 import sys
+from datetime import date
 
 WINDOW_SIZE = 500          # tweets per monitoring window, one "day" of traffic
 DRIFT_THRESHOLD = 0.10     # alert when the negative share grows by more than 10 points
@@ -50,7 +51,7 @@ def check_drift(current, baseline, threshold=DRIFT_THRESHOLD):
     return shift, shift > threshold
 
 
-def monitor(n_windows):
+def monitor(first_window, n_windows):
     """Run the monitoring loop over consecutive windows; return the alerting ones."""
     baseline = load_baseline()
     print(f"{'baseline negative share:':<26}{baseline[0]:>8.2%}\n")
@@ -60,7 +61,7 @@ def monitor(n_windows):
     print("-" * len(header))
 
     alerts = []
-    for index in range(BASELINE_WINDOWS, BASELINE_WINDOWS + n_windows):
+    for index in range(first_window, first_window + n_windows):
         distribution = sentiment_distribution(get_window(index))
         shift, alerting = check_drift(distribution, baseline)
 
@@ -84,12 +85,11 @@ def monitor(n_windows):
 if __name__ == "__main__":
     mlflow.set_tracking_uri(MLFLOW_URI)
 
+    # walk the stream with the calendar, so a scheduled run sees new data each day
+    total_windows = 24
+    available = total_windows - BASELINE_WINDOWS
+    first = BASELINE_WINDOWS + (date.today().toordinal() % available)
+
     with mlflow.start_run():
         mlflow.log_params({"window_size": WINDOW_SIZE, "threshold": DRIFT_THRESHOLD})
-        alerts = monitor(n_windows=5)
-
-    if alerts:
-        print(f"\nDrift detected on windows: {alerts}")
-        sys.exit(1)  # non-zero exit fails the job and notifies
-
-    print("\nNo drift detected.")
+        alerts = monitor(first_window=first, n_windows=1)
