@@ -19,7 +19,7 @@ MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 config    = AutoConfig.from_pretrained(MODEL)
-model     = AutoModelForSequenceClassification.from_pretrained(MODEL)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL, use_safetensors=True)
 
 
 # Predict sentiment of a list of texts, in batches; returns class indices
@@ -37,3 +37,11 @@ def predict_batch(texts, batch_size=32):
 # Predict sentiment of a single text; returns the class index
 def predict(text):
     return predict_batch([text])[0]
+
+
+# Probability over the three classes for a single text
+def predict_scores(text):
+    encoded = tokenizer(preprocess(text), return_tensors='pt', truncation=True)
+    with torch.no_grad():
+        logits = model(**encoded).logits
+    return logits.softmax(dim=1)[0].tolist()

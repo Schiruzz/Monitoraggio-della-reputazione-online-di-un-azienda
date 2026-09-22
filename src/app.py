@@ -1,10 +1,9 @@
 import gradio as gr
-from model_setup import predict, config
+from model_setup import predict_scores, config
 
 def analyze_sentiment(text):
-    idx = predict(text)
-    label = config.id2label[idx]
-    return label
+    scores = predict_scores(text)
+    return {config.id2label[i]: scores[i] for i in range(3)}
 
 demo = gr.Interface(
     fn=analyze_sentiment,
