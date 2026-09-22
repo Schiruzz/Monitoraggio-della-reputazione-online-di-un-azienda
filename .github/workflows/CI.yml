@@ -35,7 +35,8 @@ jobs:
         run: |
           cd src
           python -c "
-          from evaluate import accuracy, f1
+          from evaluation import evaluate_model
+          accuracy, f1 = evaluate_model()
           assert accuracy >= 0.65, f'Accuracy too low: {accuracy}'
           assert f1 >= 0.65, f'F1 too low: {f1}'
           print('Performance check passed!')
