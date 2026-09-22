@@ -1,7 +1,6 @@
 from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer, AutoConfig
-import numpy as np
-from scipy.special import softmax
+import torch
 
 # Preprocess text as required by the model
 # - @username -> @user
@@ -22,10 +21,19 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL)
 config    = AutoConfig.from_pretrained(MODEL)
 model     = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
-# Predict sentiment of a text
+
+# Predict sentiment of a list of texts, in batches; returns class indices
+def predict_batch(texts, batch_size=32):
+    predictions = []
+    for start in range(0, len(texts), batch_size):
+        batch = [preprocess(t) for t in texts[start:start + batch_size]]
+        encoded = tokenizer(batch, return_tensors='pt', padding=True, truncation=True)
+        with torch.no_grad():  # inference only, no gradients to track
+            logits = model(**encoded).logits
+        predictions.extend(logits.argmax(dim=1).tolist())
+    return predictions
+
+
+# Predict sentiment of a single text; returns the class index
 def predict(text):
-    text = preprocess(text)
-    encoded_input = tokenizer(text, return_tensors='pt')
-    output = model(**encoded_input)
-    scores = softmax(output[0][0].detach().numpy())
-    return int(np.argsort(scores)[::-1][0])
+    return predict_batch([text])[0]
