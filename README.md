@@ -4,7 +4,7 @@ Brand reputation monitoring on social media: a sentiment classifier served as a
 live app, plus a drift detector that watches whether incoming sentiment shifts
 away from its baseline.
 
-**[Live demo](https://huggingface.co/spaces/Schiro/Monitoraggio_Della_Reputazione_Online)**
+**[Live demo]([Live demo](https://huggingface.co/spaces/Schiro/Sentiment-Drift-Monitoring))**
 
 ![Demo](assets/demo.png)
 
